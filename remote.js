@@ -2,10 +2,9 @@
 var alexa = require('alexa-app'),
     HarmonyUtils = require('harmony-hub-util'),
     harmony_clients = {},
-    conf = require('./remote_conf.js'),
-    hub_ip = conf.hub_ip,
-    app_id = conf.app_id;
-
+    dotenv = require('dotenv').config(),
+    hub_ip = dotenv.HUB_IP,
+    app_id = dotenv.SKILL_APP_ID;
 
 // Define an alexa-app
 var app = new alexa.app('remote');
