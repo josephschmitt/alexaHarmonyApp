@@ -37,11 +37,14 @@ Put the created certificate in ./cert directory
 
 ### Configure the Application
 Create the application on amazon and copy the application id for it.
-Modify the variables at the top of the file "remote_conf.js"
-   hub_ip : IP address of the harmony hub.
-   app_id : Application ID as registered on amazon.
+Create a file named `.env` in the root of the project with the following configuration values
+```
+   HUB_IP=<IP ADDRESS TO HARMONY HUB>
+   SKILL_APP_ID=<APPLICATION ID FOR YOUR ALEXA SKILL>
+```
 
 ### Run the server
+You might have to run it as `sudo`
 >node server.js
 Listening on port 443
 
