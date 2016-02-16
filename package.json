@@ -8,9 +8,12 @@
   "dependencies": {
     "alexa-app": "^2.1.0",
     "body-parser": "~1.0.1",
+    "co": "^4.6.0",
     "dotenv": "^2.0.0",
     "ejs": "~0.7.1",
     "express": "~4.0.0",
-    "harmony-hub-util": "^1.0.5"
+    "harmony-hub-util": "^1.0.5",
+    "node-promise": "^0.5.12",
+    "underscore": "^1.8.3"
   }
 }

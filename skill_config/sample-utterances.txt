@@ -1,0 +1,84 @@
+StartActivity watch {Apple TV|activityName}
+StartActivity watch {Movie|activityName}
+StartActivity play {Wii U|activityName}
+StartActivity play {Wii|activityName}
+StartActivity play {PS Four|activityName}
+StartActivity play {PlayStation|activityName}
+
+StartActivity start {Apple TV|activityName}
+StartActivity start {TV|activityName}
+StartActivity start {Music|activityName}
+StartActivity start {Listen to Music|activityName}
+StartActivity start {Wii U|activityName}
+StartActivity start {Wii|activityName}
+StartActivity start {PS Four|activityName}
+StartActivity start {PlayStation|activityName}
+
+StartActivity trigger {Apple TV|activityName}
+StartActivity trigger {TV|activityName}
+StartActivity trigger {Music|activityName}
+StartActivity trigger {Listen to Music|activityName}
+StartActivity trigger {Wii U|activityName}
+StartActivity trigger {Wii|activityName}
+StartActivity trigger {PS Four|activityName}
+StartActivity trigger {PlayStation|activityName}
+
+StartActivity {PowerOff|activityName}
+StartActivity {Watch Apple TV|activityName}
+StartActivity {Watch Movie|activityName}
+StartActivity {Watch Blu Ray|activityName}
+StartActivity {Watch Show|activityName}
+StartActivity {Play Wii U|activityName}
+StartActivity {Play Wii|activityName}
+StartActivity {Play PS Four|activityName}
+StartActivity {Play PlayStation|activityName}
+
+ToggleActivity {toggleAction} activity {Watch TV|activityName}
+ToggleActivity {toggleAction} activity {Watch Apple TV|activityName}
+ToggleActivity {toggleAction} activity {Watch Movie|activityName}
+ToggleActivity {toggleAction} activity {Watch Blu Ray|activityName}
+ToggleActivity {toggleAction} activity {Watch Show|activityName}
+ToggleActivity {toggleAction} activity {Play Wii U|activityName}
+ToggleActivity {toggleAction} activity {Play Wii|activityName}
+ToggleActivity {toggleAction} activity {Play PS Four|activityName}
+ToggleActivity {toggleAction} activity {Play PlayStation|activityName}
+ToggleActivity {toggleAction} activity {Play PlayStation Four|activityName}
+ToggleActivity {toggleAction} activity {Play Xbox One|activityName}
+ToggleActivity {toggleAction} activity {Play Xbox|activityName}
+
+CommandActivity {pause|activityCommand}
+CommandActivity {play|activityCommand}
+CommandActivity {menu|activityCommand}
+CommandActivity {back|activityCommand}
+CommandActivity {stop|activityCommand}
+CommandActivity {rewind|activityCommand}
+CommandActivity {fast forward|activityCommand}
+CommandActivity {home|activityCommand}
+CommandActivity {select|activityCommand}
+
+IncreaseVolume volume up
+IncreaseVolume increase volume by {one|AMOUNT}
+IncreaseVolume volume by {two|AMOUNT}
+IncreaseVolume increase volume {three|AMOUNT}
+IncreaseVolume volume {four|AMOUNT}
+IncreaseVolume increase volume by {five|AMOUNT}
+IncreaseVolume volume by {six|AMOUNT}
+IncreaseVolume increase volume {seven|AMOUNT}
+IncreaseVolume volume {eight|AMOUNT}
+IncreaseVolume increase volume by {nine|AMOUNT}
+
+DecreaseVolume volume down
+DecreaseVolume decrease volume by {one|AMOUNT}
+DecreaseVolume reduce volume by {two|AMOUNT}
+DecreaseVolume down volume by {three|AMOUNT}
+DecreaseVolume volume down by {four|AMOUNT}
+DecreaseVolume decrease volume {five|AMOUNT}
+DecreaseVolume reduce volume {six|AMOUNT}
+DecreaseVolume down volume {seven|AMOUNT}
+DecreaseVolume volume down {eight|AMOUNT}
+DecreaseVolume decrease volume by {nine|AMOUNT}
+
+MuteVolume mute
+MuteVolume to mute
+MuteVolume quiet
+MuteVolume unmute
