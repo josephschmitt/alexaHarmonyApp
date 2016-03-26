@@ -1,10 +1,3 @@
-StartActivity watch {Apple TV|activityName}
-StartActivity watch {Movie|activityName}
-StartActivity play {Wii U|activityName}
-StartActivity play {Wii|activityName}
-StartActivity play {PS Four|activityName}
-StartActivity play {PlayStation|activityName}
-
 StartActivity start {Apple TV|activityName}
 StartActivity start {TV|activityName}
 StartActivity start {Music|activityName}
@@ -13,6 +6,26 @@ StartActivity start {Wii U|activityName}
 StartActivity start {Wii|activityName}
 StartActivity start {PS Four|activityName}
 StartActivity start {PlayStation|activityName}
+
+StartActivity switch to {Apple TV|activityName}
+StartActivity switch to {Movie|activityName}
+StartActivity switch to {Wii U|activityName}
+StartActivity switch to {Wii|activityName}
+StartActivity switch to {PS Four|activityName}
+StartActivity switch to {PlayStation|activityName}
+StartActivity switch to the {Apple TV|activityName}
+StartActivity switch to the {Movie|activityName}
+StartActivity switch to the {Wii U|activityName}
+StartActivity switch to the {Wii|activityName}
+StartActivity switch to the {PS Four|activityName}
+StartActivity switch to the {PlayStation|activityName}
+
+StartActivity turn on {Apple TV|activityName}
+StartActivity turn on {Movie|activityName}
+StartActivity turn on {Wii U|activityName}
+StartActivity turn on {Wii|activityName}
+StartActivity turn on {PS Four|activityName}
+StartActivity turn on {PlayStation|activityName}
 
 StartActivity trigger {Apple TV|activityName}
 StartActivity trigger {TV|activityName}
@@ -24,14 +37,13 @@ StartActivity trigger {PS Four|activityName}
 StartActivity trigger {PlayStation|activityName}
 
 StartActivity {PowerOff|activityName}
-StartActivity {Watch Apple TV|activityName}
-StartActivity {Watch Movie|activityName}
-StartActivity {Watch Blu Ray|activityName}
-StartActivity {Watch Show|activityName}
-StartActivity {Play Wii U|activityName}
-StartActivity {Play Wii|activityName}
-StartActivity {Play PS Four|activityName}
-StartActivity {Play PlayStation|activityName}
+EndActivity end
+EndActivity turn off
+EndActivity shut down
+EndActivity goodbye
+EndActivity time for bed
+EndActivity fuck off
+EndActivity power down
 
 ToggleActivity {toggleAction} activity {Watch TV|activityName}
 ToggleActivity {toggleAction} activity {Watch Apple TV|activityName}
@@ -46,39 +58,35 @@ ToggleActivity {toggleAction} activity {Play PlayStation Four|activityName}
 ToggleActivity {toggleAction} activity {Play Xbox One|activityName}
 ToggleActivity {toggleAction} activity {Play Xbox|activityName}
 
-CommandActivity {pause|activityCommand}
 CommandActivity {play|activityCommand}
-CommandActivity {menu|activityCommand}
-CommandActivity {back|activityCommand}
-CommandActivity {stop|activityCommand}
-CommandActivity {rewind|activityCommand}
-CommandActivity {fast forward|activityCommand}
-CommandActivity {home|activityCommand}
-CommandActivity {select|activityCommand}
+CommandActivity {pause|activityCommand}
 
 IncreaseVolume volume up
 IncreaseVolume increase volume by {one|AMOUNT}
-IncreaseVolume volume by {two|AMOUNT}
+IncreaseVolume volume up by {two|AMOUNT}
 IncreaseVolume increase volume {three|AMOUNT}
-IncreaseVolume volume {four|AMOUNT}
 IncreaseVolume increase volume by {five|AMOUNT}
-IncreaseVolume volume by {six|AMOUNT}
+IncreaseVolume volume up by {six|AMOUNT}
 IncreaseVolume increase volume {seven|AMOUNT}
-IncreaseVolume volume {eight|AMOUNT}
 IncreaseVolume increase volume by {nine|AMOUNT}
 
 DecreaseVolume volume down
 DecreaseVolume decrease volume by {one|AMOUNT}
-DecreaseVolume reduce volume by {two|AMOUNT}
-DecreaseVolume down volume by {three|AMOUNT}
-DecreaseVolume volume down by {four|AMOUNT}
-DecreaseVolume decrease volume {five|AMOUNT}
-DecreaseVolume reduce volume {six|AMOUNT}
-DecreaseVolume down volume {seven|AMOUNT}
-DecreaseVolume volume down {eight|AMOUNT}
+DecreaseVolume volume down by {two|AMOUNT}
+DecreaseVolume decrease volume {three|AMOUNT}
+DecreaseVolume decrease volume by {five|AMOUNT}
+DecreaseVolume volume down by {six|AMOUNT}
+DecreaseVolume decrease volume {seven|AMOUNT}
 DecreaseVolume decrease volume by {nine|AMOUNT}
 
 MuteVolume mute
 MuteVolume to mute
+MuteVolume to mute volume
 MuteVolume quiet
+MuteVolume shut up
 MuteVolume unmute
+
+ScreenWipe screen wipe
+ScreenWipe start the screen wipe
+ScreenWipe start screen wipe
+ScreenWipe good night
