@@ -71,7 +71,7 @@ app.intent('CommandActivity', coAlexaWrap(function* (req, res) {
   let curActivity = yield hutils.readCurrentActivity();
   let activityCommand = req.slot('activityCommand');
 
-  commandActivity(curActivity, activityCommand, res);
+  co(commandActivity(curActivity, activityCommand, res));
 }));
 
 app.intent('EndActivity', function (req, res) {
@@ -94,8 +94,6 @@ app.intent('ToggleActivity', coAlexaWrap(function* (req, res) {
   else {
     return res.say("I'm sorry, I was unable to do that.");
   }
-
-  return false;
 }));
 
 /**
