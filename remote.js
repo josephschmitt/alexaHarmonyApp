@@ -96,6 +96,11 @@ app.intent('CommandActivity', coAlexaWrap(function* (req, res) {
   return false;
 }));
 
+app.intent('EndActivity', function (req, res) {
+  hutils.endCurrentActivity();
+  resp.say('Ok').send();
+});
+
 app.intent('ToggleActivity', coAlexaWrap(function* (req, res) {
   let hutils = yield getHarmonyHub();
   let activityName = req.slot('activityName');
