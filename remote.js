@@ -63,42 +63,19 @@ app.intent('StartActivity', coAlexaWrap(function* (req, res) {
     return act.toLowerCase().indexOf(reqName) >= 0;
   })[0];
 
-  if (activityName) {
-    console.log('Starting activity ' + activityName);
-    hutils.executeActivity(activityName);
-    resp.say('Ok, ' + activityName).send();
-  }
-  else {
-    console.log('Unable to find activity ' + activityName + ', requested ' + reqName);
-    resp.say('No activity for ' + reqName).send();
-  }
+  startActivity(activityName, res);
 }));
 
 app.intent('CommandActivity', coAlexaWrap(function* (req, res) {
   let hutils = yield getHarmonyHub();
   let curActivity = yield hutils.readCurrentActivity();
-  let allCommands = yield hutils.readCommands(false, curActivity);
   let activityCommand = req.slot('activityCommand');
-  let cmdMatch = allCommands.filter(function (cmd) {
-    return cmd[1].toLowerCase() == activityCommand.toLowerCase();
-  });
 
-  if (cmdMatch.length) {
-    hutils.executeCommand(false, curActivity, cmdMatch[0].join(','), 1).then(function () {
-      console.log("Command " + cmdMatch[0][1] + " on activity " + curActivity + " executed.");
-    });
-    resp.say('Ok').send();
-  }
-  else {
-    resp.say('Sorry, I couldn\'t do that').send();
-  }
-
-  return false;
+  commandActivity(curActivity, activityCommand, res);
 }));
 
 app.intent('EndActivity', function (req, res) {
-  hutils.endCurrentActivity();
-  resp.say('Ok').send();
+  endCurrentActivity(res);
 });
 
 app.intent('ToggleActivity', coAlexaWrap(function* (req, res) {
@@ -109,26 +86,13 @@ app.intent('ToggleActivity', coAlexaWrap(function* (req, res) {
   console.log('Executing ' + action + ' for activity ' + activityName);
 
   if (action.toLowerCase() === 'start') {
-    let activities = yield hutils.readActivities();
-    let foundActivity = activities.filter(function (act) {
-        return act.toLowerCase() === activityName;
-    })[0];
-
-    console.log('matched activity name', foundActivity);
-
-    hutils.executeActivity(foundActivity).then(function () {
-      console.log("Started activity " + foundActivity);
-    });
-    resp.say('Starting ' + foundActivity).send();
+    startActivity(activityName, res)
   }
   else if (action.toLowerCase() === 'end') {
-    hutils.endCurrentActivity().then(function () {
-      console.log("Ended activity " + activityName);
-    });
-    resp.send();
+    endCurrentActivity(res);
   }
   else {
-    return resp.say("I'm sorry, I was unable to do that.");
+    return res.say("I'm sorry, I was unable to do that.");
   }
 
   return false;
@@ -168,6 +132,40 @@ function getHarmonyHub() {
     cacheHarmonyUtils().catch(deferred.reject).then(deferred.resolve);
   }
   return deferred.promise;
+}
+
+function startActivity(activityName, res) {
+  if (activityName) {
+    console.log('Starting activity ' + activityName);
+    res.say('Ok, ' + activityName).send();
+    return hutils.executeActivity(activityName);
+  }
+  else {
+    console.log('Unable to find activity ' + activityName);
+    return res.say('No activity found').send();
+  }
+}
+
+function* commandActivity(activity, reqCommand, res) {
+  let allCommands = yield hutils.readCommands(false, curActivity);
+  let cmdMatch = allCommands.filter(function (cmd) {
+    return cmd[1].toLowerCase() == reqCommand.toLowerCase();
+  });
+
+  if (cmdMatch.length) {
+    res.say('Ok').send();
+    return hutils.executeCommand(false, activity, cmdMatch[0].join(','), 1).then(function () {
+      console.log("Command " + cmdMatch[0][1] + " on activity " + activity + " executed.");
+    });
+  }
+  else {
+    return res.say('Sorry, I couldn\'t do that').send();
+  }
+}
+
+function endCurrentActivity(res) {
+  res.say('Ok').send();
+  return hutils.endCurrentActivity();
 }
 
 module.exports = app;

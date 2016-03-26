@@ -1,57 +1,60 @@
 {
-    "intents": [
+  "intents": [
+    {
+      "intent": "StartActivity",
+      "slots": [
         {
-            "intent": "StartActivity",
-            "slots": [
-                {
-                    "name": "activityName",
-                    "type": "AMAZON.LITERAL"
-                }
-            ]
-        },
-        {
-          "intent": "CommandActivity",
-          "slots": [
-            {
-              "name": "activityCommand",
-              "type": "AMAZON.LITERAL"
-            }
-          ]
-        },
-        {
-            "intent": "ToggleActivity",
-            "slots": [
-                {
-                    "name": "activityName",
-                    "type": "AMAZON.LITERAL"
-                },
-                {
-                    "name": "toggleAction",
-                    "type": "ACTIVITY_ACTION"
-                }
-            ]
-        },
-        {
-            "intent": "IncreaseVolume",
-            "slots": [
-                {
-                    "name": "AMOUNT",
-                    "type": "NUMBER"
-                }
-            ]
-        },
-        {
-            "intent": "DecreaseVolume",
-            "slots": [
-                {
-                    "name": "AMOUNT",
-                    "type": "NUMBER"
-                }
-            ]
-        },
-        {
-            "intent": "MuteVolume",
-            "slots": []
+          "name": "activityName",
+          "type": "AMAZON.LITERAL"
         }
-    ]
+      ]
+    },
+    {
+      "intent": "EndActivity"
+    },
+    {
+      "intent": "CommandActivity",
+      "slots": [
+      {
+        "name": "activityCommand",
+        "type": "AMAZON.LITERAL"
+      }
+      ]
+    },
+    {
+      "intent": "ToggleActivity",
+      "slots": [
+        {
+          "name": "activityName",
+          "type": "AMAZON.LITERAL"
+        },
+        {
+          "name": "toggleAction",
+          "type": "ACTIVITY_ACTION"
+        }
+      ]
+    },
+    {
+      "intent": "IncreaseVolume",
+      "slots": [
+        {
+          "name": "AMOUNT",
+          "type": "NUMBER"
+        }
+      ]
+    },
+    {
+      "intent": "DecreaseVolume",
+      "slots": [
+        {
+          "name": "AMOUNT",
+          "type": "NUMBER"
+        }
+      ]
+    },
+    {
+      "intent": "MuteVolume",
+      "slots": []
+    }
+  ]
 }
