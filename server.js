@@ -47,5 +47,10 @@ expressApp.get(endpoint,function(req,res) {
 //expressApp.use(express.static('public_html'));
 
 //expressApp.listen(PORT);
-httpsServer.listen(PORT);
-console.log("Listening on port "+PORT);
+try {
+  httpsServer.listen(PORT);
+  console.log("Listening on port " + PORT);
+}
+catch (e) {
+  console.log('Error happened', e);
+}
