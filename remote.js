@@ -1,20 +1,20 @@
 'use strict';
 
-let alexa = require('alexa-app'),
-    _ = require('underscore'),
-    HarmonyUtils = require('harmony-hub-util'),
-    dotenv = require('dotenv').config(),
-    co = require('co'),
-    Promise = require('node-promise'),
+let alexa = require('alexa-app');
+let _ = require('underscore');
+let HarmonyUtils = require('harmony-hub-util');
+let dotenv = require('dotenv').config();
+let co = require('co');
+let Promise = require('node-promise');
 
-    harmony_clients = {},
-    hub_ip = dotenv.HUB_IP,
-    app_id = dotenv.SKILL_APP_ID,
-    interval = 5 * 60 * 1000,
+let harmony_clients = {};
+let hub_ip = dotenv.HUB_IP;
+let app_id = dotenv.SKILL_APP_ID;
+let interval = 5 * 60 * 1000;
 
-    app = new alexa.app('remote'),
-    resetInterval = setInterval(cacheHarmonyUtils, interval),
-    harmony;
+let app = new alexa.app('remote');
+let resetInterval = setInterval(cacheHarmonyUtils, interval);
+let harmony;
 
 cacheHarmonyUtils();
 
@@ -22,44 +22,40 @@ app.launch(function(req, res) {
   console.log("Launching the application");
 });
 
-app.intent('IncreaseVolume', co.wrap(function* (req, res) {
+app.intent('IncreaseVolume', coAlexaWrap(function* (req, res) {
   let hutils = yield getHarmonyHub();
   let curActivity = yield hutils.readCurrentActivity();
-
-  let amt = parseInt(req.slot('AMOUNT'), 10);
-  if (isNaN(amt)) {
-    amt = 1;
-  }
+  let amt = (parseInt(req.slot('AMOUNT'), 10) || 10) * 2;
 
   hutils.executeCommand(false, curActivity, 'Volume,Volume Up', amt).then(function () {
-    console.log('Volume increased');
+    console.log('Volume increased', amt);
   });
+  res.say('Ok').send();
 }));
 
-app.intent('DecreaseVolume', co.wrap(function* (req, res) {
+app.intent('DecreaseVolume', coAlexaWrap(function* (req, res) {
   let hutils = yield getHarmonyHub();
   let curActivity = yield hutils.readCurrentActivity();
-
-  let amt = parseInt(req.slot('AMOUNT'), 10);
-  if (isNaN(amt)) {
-    amt = 1;
-  }
+  let amt = parseInt(req.slot('AMOUNT'), 10) || 10;
 
   hutils.executeCommand(false, curActivity, 'Volume,Volume Down', amt).then(function () {
-    console.log('Volume decreased');
+    console.log('Volume decreased', amt);
   });
+  res.say('Ok').send();
 }));
 
-app.intent('MuteVolume', co.wrap(function* (req, res) {
+app.intent('MuteVolume', coAlexaWrap(function* (req, res) {
   let hutils = yield getHarmonyHub();
   let curActivity = yield hutils.readCurrentActivity();
 
   hutils.executeCommand(false, curActivity, 'Volume,Mute', 1).then(function () {
     console.log('Volume muted');
   });
+
+  res.say('Ok').send();
 }));
 
-app.intent('StartActivity', co.wrap(function* (req, resp) {
+app.intent('StartActivity', coAlexaWrap(function* (req, res) {
   let hutils = yield getHarmonyHub();
   let activities = yield hutils.readActivities();
   let reqName = req.slot('activityName');
@@ -68,19 +64,17 @@ app.intent('StartActivity', co.wrap(function* (req, resp) {
   })[0];
 
   if (activityName) {
-    console.log('Executing activity ' + activityName);
+    console.log('Starting activity ' + activityName);
     hutils.executeActivity(activityName);
-    resp.say('Starting ' + activityName).send();
+    resp.say('Ok, ' + activityName).send();
   }
   else {
-    console.log('Unable to find activity ' + activityName);
-    resp.say('I was unable to find an activity named ' + reqName).send();
+    console.log('Unable to find activity ' + activityName + ', requested ' + reqName);
+    resp.say('No activity for ' + reqName).send();
   }
-
-  return false;
 }));
 
-app.intent('CommandActivity', co.wrap(function* (req, resp) {
+app.intent('CommandActivity', coAlexaWrap(function* (req, res) {
   let hutils = yield getHarmonyHub();
   let curActivity = yield hutils.readCurrentActivity();
   let allCommands = yield hutils.readCommands(false, curActivity);
@@ -92,16 +86,17 @@ app.intent('CommandActivity', co.wrap(function* (req, resp) {
   if (cmdMatch.length) {
     hutils.executeCommand(false, curActivity, cmdMatch[0].join(','), 1).then(function () {
       console.log("Command " + cmdMatch[0][1] + " on activity " + curActivity + " executed.");
-      resp.send();
     });
-  } else {
+    resp.say('Ok').send();
+  }
+  else {
     resp.say('Sorry, I couldn\'t do that').send();
   }
 
   return false;
 }));
 
-app.intent('ToggleActivity', co.wrap(function* (req, resp) {
+app.intent('ToggleActivity', coAlexaWrap(function* (req, res) {
   let hutils = yield getHarmonyHub();
   let activityName = req.slot('activityName');
   let action = req.slot('toggleAction');
@@ -134,6 +129,21 @@ app.intent('ToggleActivity', co.wrap(function* (req, resp) {
   return false;
 }));
 
+/**
+ * Works like the co.wrap function but instead of returning a Promise it returns false so that
+ * Alexa knows to wait for a response.
+ * @param {Function} fn
+ * @returns {Boolean} false
+ */
+function coAlexaWrap(fn) {
+  createResponse.__generatorFunction__ = fn;
+  return createResponse;
+  function createResponse() {
+    co.call(this, fn.apply(this, arguments));
+    return false;
+  }
+}
+
 function cacheHarmonyUtils() {
   harmony = null;
 
@@ -152,7 +162,6 @@ function getHarmonyHub() {
     clearInterval(resetInterval);
     cacheHarmonyUtils().catch(deferred.reject).then(deferred.resolve);
   }
-
   return deferred.promise;
 }
 
